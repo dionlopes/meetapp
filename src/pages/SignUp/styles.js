@@ -27,6 +27,6 @@ export const SignLink = styled.TouchableOpacity`
   margin-top: 20px;
 `;
 export const SignLinkText = styled.Text`
-  color: #fff;
+  color: #AFA8B0;
   font-weight: bold;
 `;

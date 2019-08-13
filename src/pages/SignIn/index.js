@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Image, TouchableOpacity } from 'react-native';
+import { Image } from 'react-native';
 
 import Background from '~/components/Background';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -14,7 +14,7 @@ import {
   SignLinkText,
 } from './styles';
 
-export default function SignIn() {
+export default function SignIn({ navigation }) {
   const passwordRef = useRef();
 
   const [email, setEmail] = useState('');

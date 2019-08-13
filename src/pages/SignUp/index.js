@@ -1,8 +1,11 @@
 import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Image } from 'react-native';
 
 import logo from '~/assets/M.png';
 import Background from '~/components/Background';
+
+import { signUpRequest } from '~/store/modules/auth/actions';
 
 import {
   Container,
@@ -14,6 +17,7 @@ import {
 } from './styles';
 
 export default function SignUp({ navigation }) {
+  const dispatch = useDispatch();
   const passwordRef = useRef();
   const emailRef = useRef();
 
@@ -21,8 +25,10 @@ export default function SignUp({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const loading = useSelector(state => state.auth.loading);
+
   function handleSubmit() {
-    console.log('register');
+    dispatch(signUpRequest(name, email, password));
   }
 
   return (
@@ -64,7 +70,7 @@ export default function SignUp({ navigation }) {
             onChangeText={setPassword}
           />
 
-          <SubmitButton onPress={handleSubmit}>
+          <SubmitButton loading={loading} onPress={handleSubmit}>
             Criar conta
           </SubmitButton>
         </Form>

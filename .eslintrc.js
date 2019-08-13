@@ -24,6 +24,7 @@ module.exports = {
   plugins: [
     'react',
     'react-hooks',
+    'import',
     'jsx-a11y',
     'prettier'
   ],
@@ -40,7 +41,11 @@ module.exports = {
     camelcase: "off",
     "no-console": ["error", { allow: ["tron"] }],
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-props-no-spreading": [{
+      "html": "ignore" / "enforce",
+      "custom": "ignore" / "enforce",
+    }]
   },
   settings: {
     "import/resolver": {

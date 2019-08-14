@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { subDays, addDays, format, isBefore } from 'date-fns';
 import pt from 'date-fns/locale/pt';
@@ -12,13 +13,14 @@ import api from '~/services/api';
 import Background from '~/components/Background';
 import Button from '~/components/Button';
 import CardMeetup from '~/components/CardMeetup';
+
 import { Container, Header, Strong, List } from './styles';
 
 export default function Dashboard({ navigation }) {
   const signed = useSelector(state => state.auth.signed);
   const [date, setDate] = useState(new Date());
   const [meetups, setMeetups] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
 
   const dateFormatted = useMemo(
     () => format(date, "d 'de' MMMM", { locale: pt }),
@@ -49,7 +51,6 @@ export default function Dashboard({ navigation }) {
       await api.post(`/meetups/${id}/subscriptions`);
       navigation.navigate('Subscription');
     } catch (error) {
-      console.log(error);
       Alert.alert('Erro', 'Algo deu errado ao se inscrever');
     }
   }
@@ -82,9 +83,21 @@ export default function Dashboard({ navigation }) {
   );
 }
 
+function tabBarIcon({ tintColor }) {
+  return <IconTab name="list-ul" size={20} color={tintColor} />;
+}
+
 Dashboard.navigationOptions = {
   tabBarLabel: 'Meetups',
-  tabBarIcon: ({ tintColor }) => (
-    <IconTab name="list-ul" size={20} color={tintColor} />
-  ),
+  tabBarIcon,
+};
+
+Dashboard.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+tabBarIcon.propTypes = {
+  tintColor: PropTypes.string.isRequired,
 };

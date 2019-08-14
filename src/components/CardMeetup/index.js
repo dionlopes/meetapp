@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { formatRelative, parseISO, subHours } from 'date-fns';
 import pt from 'date-fns/locale/pt';
+import PropTypes from 'prop-types';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Button from '~/components/Button';
@@ -57,3 +58,26 @@ export default function CardMeetup({
     </Container>
   );
 }
+
+CardMeetup.propTypes = {
+  data: PropTypes.shape({
+    date: PropTypes.string,
+    location: PropTypes.string,
+    title: PropTypes.string,
+    user: PropTypes.shape({
+      name: PropTypes.string,
+    }),
+    imagem: PropTypes.shape({
+      url: PropTypes.string,
+    }),
+  }).isRequired,
+  signed: PropTypes.bool,
+  subscription: PropTypes.func,
+  unsubscribe: PropTypes.func,
+};
+
+CardMeetup.defaultProps = {
+  signed: false,
+  subscription: null,
+  unsubscribe: null,
+};

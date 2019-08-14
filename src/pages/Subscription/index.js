@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
+import PropTypes from 'prop-types';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import api from '~/services/api';
@@ -9,7 +10,7 @@ import CardMeetup from '~/components/CardMeetup';
 
 import { Container, List, EmptyList, TitleEmptyList } from './styles';
 
-export default function Subscription({ navigation }) {
+export default function Subscription() {
   const [meetups, setMeetups] = useState([]);
 
   async function loadMeetups() {
@@ -56,9 +57,15 @@ export default function Subscription({ navigation }) {
   );
 }
 
+function tabBarIcon({ tintColor }) {
+  return <Icon name="tag" size={18} color={tintColor} />;
+}
+
 Subscription.navigationOptions = {
   tabBarLabel: 'Inscrições',
-  tabBarIcon: ({ tintColor }) => (
-    <Icon name="tag" size={18} color={tintColor} />
-  ),
+  tabBarIcon,
+};
+
+tabBarIcon.propTypes = {
+  tintColor: PropTypes.string.isRequired,
 };

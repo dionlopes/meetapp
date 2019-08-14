@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import PropTypes from 'prop-types';
 
 import Background from '~/components/Background';
 
@@ -123,9 +124,15 @@ export default function Profile() {
   );
 }
 
+function tabBarIcon({ tintColor }) {
+  return <Icon name="person" size={22} color={tintColor} />;
+}
+
 Profile.navigationOptions = {
   tabBarLabel: 'Meu perfil',
-  tabBarIcon: ({ tintColor }) => (
-    <Icon name="person" size={22} color={tintColor} />
-  ),
+  tabBarIcon,
+};
+
+tabBarIcon.propTypes = {
+  tintColor: PropTypes.string.isRequired,
 };

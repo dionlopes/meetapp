@@ -6,20 +6,6 @@ export const Container = styled.SafeAreaView`
   justify-content: center;
 `;
 
-export const Header = styled.View`
-  display: flex;
-  flex-direction: row;
-  align-self: center;
-  align-items: center;
-  margin-top: 10px;
-`;
-
-export const Strong = styled.Text`
-  color: #fff;
-  font-size: 18px;
-  margin: 0 14px;
-`;
-
 export const List = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {
@@ -29,4 +15,13 @@ export const List = styled.FlatList.attrs({
   },
 })`
   margin-top: 10px;
+`;
+
+export const EmptyList = styled.View`
+  align-items: center;
+`;
+
+export const TitleEmptyList = styled.Text`
+  margin-top: 5px;
+  color: #ffff;
 `;

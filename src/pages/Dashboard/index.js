@@ -47,7 +47,7 @@ export default function Dashboard({ navigation }) {
   async function handleSubscription(id) {
     try {
       await api.post(`/meetups/${id}/subscriptions`);
-      navigation.navigate('Profile');
+      navigation.navigate('Subscription');
     } catch (error) {
       console.log(error);
       Alert.alert('Erro', 'Algo deu errado ao se inscrever');
@@ -56,7 +56,7 @@ export default function Dashboard({ navigation }) {
   return (
     <Background>
       <Container>
-        <Header sig={signed}>
+        <Header>
           <Button type="button" onPress={handlePrevDay}>
             <Icon name="keyboard-arrow-left" size={20} color="#fff" />
           </Button>

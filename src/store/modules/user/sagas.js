@@ -8,11 +8,11 @@ import { updateProfileSuccess, updateProfileFailure } from './actions';
 export function* updateProfile({ payload }) {
   try {
     const { name, email, ...rest } = payload.data;
-
-    const profile = Object.assign(
-      { name, email },
-      rest.old_password ? rest : {}
-    );
+    const profile = {
+      name,
+      email,
+      ...(rest.old_password ? rest : {}),
+    };
 
     const response = yield call(api.put, 'users', profile);
 

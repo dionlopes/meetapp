@@ -39,13 +39,15 @@ export default function Profile() {
   }, [profile]);
 
   function handleSubmit() {
+    const old_password = oldPassword;
+    const password_confirmation = confirmPassword;
     dispatch(
       updateProfileRequest({
         name,
         email,
-        oldPassword,
+        old_password,
         password,
-        confirmPassword,
+        password_confirmation,
       })
     );
   }

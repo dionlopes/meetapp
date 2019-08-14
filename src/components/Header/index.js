@@ -6,7 +6,7 @@ import { Container, ImageLogo } from './styles';
 export default function Header() {
   return (
     <Container>
-      <ImageLogo source={Logo} />
+      <ImageLogo source={Logo} style={{ resizeMode: 'stretch' }} />
     </Container>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import Header from './components/Header';
@@ -11,7 +12,14 @@ export default function App() {
   const Routes = createRouter(signed);
   return (
     <>
-      {signed ? <Header /> : null}
+      {signed ? (
+        <>
+          <StatusBar barStyle="light-content" backgroundColor="#19171f" />
+          <Header />
+        </>
+      ) : (
+        <StatusBar barStyle="light-content" backgroundColor="#22202c" />
+      )}
       <Routes />
     </>
   );

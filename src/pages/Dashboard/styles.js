@@ -11,7 +11,7 @@ export const Header = styled.View`
   flex-direction: row;
   align-self: center;
   align-items: center;
-  margin: 10px 0;
+  margin: 15px 0;
 `;
 
 export const Strong = styled.Text`

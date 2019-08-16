@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   max-width: 335px;
   max-height: 345px;
   border-radius: 4px;
@@ -10,7 +10,7 @@ export const Container = styled.View`
 
 export const MeetupImg = styled.Image`
   width: 100%;
-  min-height: 100px;
+  min-height: 150px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 `;

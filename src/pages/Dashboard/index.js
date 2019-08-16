@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Alert } from 'react-native';
+import { Alert, FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -14,35 +14,55 @@ import Background from '~/components/Background';
 import Button from '~/components/Button';
 import CardMeetup from '~/components/CardMeetup';
 
-import { Container, Header, Strong, List } from './styles';
+import { Container, Header, Strong } from './styles';
 
 export default function Dashboard({ navigation }) {
   const signed = useSelector(state => state.auth.signed);
   const [date, setDate] = useState(new Date());
   const [meetups, setMeetups] = useState([]);
-  const [page] = useState(1);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(false);
 
   const dateFormatted = useMemo(
     () => format(date, "d 'de' MMMM", { locale: pt }),
     [date]
   );
 
-  useEffect(() => {
-    async function loadMeetups() {
-      const response = await api.get('/meetups', {
-        params: { page, date },
-      });
+  async function loadMeetups() {
+    if (total) return;
 
-      setMeetups(response.data);
+    const data = await api.get('/meetups', {
+      params: { page, date },
+    });
+
+    if (data.data.length < 1) {
+      setTotal(true);
+    } else {
+      setTotal(false);
+      setMeetups([...meetups, ...data.data]);
+      setPage(page + 1);
     }
+  }
+
+  useEffect(() => {
     loadMeetups();
-  }, [date, page]);
+  }, [date]);
+
+  function resetPage() {
+    setMeetups([]);
+    setTotal(false);
+    setPage(1);
+  }
 
   function handlePrevDay() {
-    if (isBefore(new Date(), date)) setDate(subDays(date, 1));
+    if (isBefore(new Date(), date)) {
+      setDate(subDays(date, 1));
+      resetPage();
+    }
   }
 
   function handleNextDay() {
+    resetPage();
     setDate(addDays(date, 1));
   }
 
@@ -51,9 +71,10 @@ export default function Dashboard({ navigation }) {
       await api.post(`/meetups/${id}/subscriptions`);
       navigation.navigate('Subscription');
     } catch (error) {
-      Alert.alert('Erro', 'Algo deu errado ao se inscrever');
+      Alert.alert('Ops', 'Algo deu errado ao se inscrever');
     }
   }
+
   return (
     <Background>
       <Container>
@@ -66,10 +87,16 @@ export default function Dashboard({ navigation }) {
             <Icon name="keyboard-arrow-right" size={20} color="#fff" />
           </Button>
         </Header>
-
-        <List
+        <FlatList
+          contentContainerStyle={{
+            paddingRight: 30,
+            paddingLeft: 30,
+            paddingBotton: 10,
+          }}
           data={meetups}
           keyExtractor={item => String(item.id)}
+          onEndReached={() => loadMeetups()}
+          onEndReachedThreshold={0.1}
           renderItem={({ item: cardMeetup }) => (
             <CardMeetup
               subscription={() => handleSubscription(cardMeetup.id)}

@@ -8,6 +8,8 @@
 	<a href="#memo-license">License</a>
 </p>
 
+![App Screenshot](https://raw.githubusercontent.com/dionlopes/meetapp/master/meetup.png)
+
 ## :rocket: Technologies
 
 This project was developed at the [RocketSeat GoStack Bootcamp](https://rocketseat.com.br/bootcamp) with the following technologies:

@@ -8,7 +8,7 @@
 	<a href="#memo-license">License</a>
 </p>
 
-![App Screenshot](https://raw.githubusercontent.com/dionlopes/meetapp/master/meetup.png)
+![App Screenshot](https://raw.githubusercontent.com/dionlopes/meetapp/master/meetup.png){:height="500px"}
 
 ## :rocket: Technologies
 

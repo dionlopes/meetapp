@@ -10,7 +10,7 @@ import CardMeetup from '~/components/CardMeetup';
 
 import { Container, List, EmptyList, TitleEmptyList } from './styles';
 
-export default function Subscription() {
+export default function Subscription({ navigation }) {
   const [meetups, setMeetups] = useState([]);
 
   async function loadMeetups() {
@@ -21,6 +21,12 @@ export default function Subscription() {
 
   useEffect(() => {
     loadMeetups();
+  }, []);
+
+  useEffect(() => {
+    this.focusListener = navigation.addListener('didFocus', () => {
+      loadMeetups();
+    });
   }, []);
 
   async function Unsubscribe(id) {
@@ -64,6 +70,13 @@ function tabBarIcon({ tintColor }) {
 Subscription.navigationOptions = {
   tabBarLabel: 'Inscrições',
   tabBarIcon,
+};
+
+Subscription.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+    addListener: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 tabBarIcon.propTypes = {
